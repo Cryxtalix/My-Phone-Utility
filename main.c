@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "permissions/permissions.h"
 
 typedef enum { False, True } boolean;
-boolean remove_defaults = 0,
-        include_all_users = 0;
+typedef struct {
+        boolean remove_defaults;
+        boolean include_all_users;
+} options;
 
 int main(int argc, char * argv[])
 {
@@ -15,11 +18,13 @@ int main(int argc, char * argv[])
 
         for (int i = 1; i < argc; ++i) {
                 // Options
+                options myoptions = {0, 0};
+
                 if (strcmp(argv[i], "-d") == 0) {
-                        remove_defaults = 1;
+                        myoptions.remove_defaults = 1;
                 }
                 else if (strcmp(argv[i], "-a") == 0) {
-                        include_all_users = 1;
+                        myoptions.include_all_users = 1;
                 }
 
                 // Gerneral commands
@@ -49,6 +54,11 @@ int main(int argc, char * argv[])
                         return 0;
                 }
 
+                else if (strcmp(argv[i], "--permissions") == 0) {
+                        permissions();
+                        return 0;
+                }
+
                 //help page
                 else if (strcmp(argv[i], "-h") == 0) {
                         printf("Samsung debloater v0.1\n");
@@ -62,6 +72,7 @@ int main(int argc, char * argv[])
                         printf("%-30s%s\n", "-u", "List users");
                         printf("%-30s%s\n", "-h", "Print help menu");
                         printf("%-30s%s\n", "--search SEARCH-TERM", "Search installed packages");
+                        printf("%-30s%s\n", "--permissions", "Open permissions utility");
                         return 0;
                 }
                 else {
