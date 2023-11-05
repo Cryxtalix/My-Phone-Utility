@@ -2,4 +2,4 @@
 #include <string.h>
 #include <stdlib.h>
 
-void permissions();
+int permissions();

@@ -55,8 +55,10 @@ int main(int argc, char * argv[])
                 }
 
                 else if (strcmp(argv[i], "--permissions") == 0) {
-                        permissions();
-                        return 0;
+                        int results = permissions();
+                        if (results == 0) {
+                                return 0;
+                        }
                 }
 
                 //help page
